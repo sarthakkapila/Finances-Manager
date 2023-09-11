@@ -5,6 +5,7 @@ import shutil
 import requests
 from bs4 import BeautifulSoup
 import random
+from datetime import datetime
 
 
 def get_crypto_data(symbol):
@@ -22,6 +23,7 @@ def show_crypto_info(symbol, name):
     price, percent_change = get_crypto_data(symbol)
     print(f"{name} Price: ${price:.2f}")
     print(f"Percentage Change in the Last 24 Hours: {percent_change:.2f}%")
+
 
 def show_SP():
   #shows about SPICE
@@ -95,11 +97,18 @@ def inputs():
  
  
 while True:
-    print("W E L C O M E   T O   Y O U R   P E R S O N A L   F I N A N C E   M A N A G E R ")
+    now = datetime.now()
+    current_time = now.strftime("%d-%m-%Y\n%H:%M:%S")
+    
+    print(current_time)
     print(" ")
-    randomn_quote()
+    print("\tW E L C O M E   T O   Y O U R   P E R S O N A L   F I N A N C E   M A N A G E R ")
+
+    print(" ")
+    # randomn_quote()
     print(" ")
     print("Market Updates ")
+    print(" ")
 
     show_crypto_info("bitcoin", "Bitcoin")
     print(" ")
@@ -107,6 +116,8 @@ while True:
     print(" ")
 
     user = inputs()
+    
+    
 
     review_choice = input("Do you want to review your information? (y/n) ")
     if review_choice == "y":
@@ -120,6 +131,21 @@ while True:
             print("Please enter y/n.")
     else:
         print("Okay, let's move on.")
+
+    def save_user_info(user):
+        with open("user_info.txt", "w") as file:
+            file.write(f"Name: {user.name}\n")
+            file.write(f"Age: {user.age}\n")
+            file.write(f"Salary: {user.salary}\n")
+            file.write(f"Rent: {user.rent}\n")
+            file.write(f"Expenses: {user.expenses}\n")
+            file.write(f"Invest: {user.invest}\n")
+            file.write(f"Portfolio: {user.portfolio}\n")
+
+    # After gathering user information and updating portfolio
+    save_user_info(user)
+
+
 
     invest_choice = input("Do you want to invest this month? (y/n) ")
     if invest_choice == "y":
@@ -224,5 +250,7 @@ while True:
         print("Thank you for using the Personal Finance Manager. Goodbye!")
         break
  
+  
+  
   
   
